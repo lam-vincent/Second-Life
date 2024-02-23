@@ -1,4 +1,18 @@
-# Dépôt Sauvage
+<br/>
+<div align="center">
+
+![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
+![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![NestJS](https://img.shields.io/badge/nestjs-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
+![GraphQl](https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white)
+
+<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJgYKHcjaMek7hg2RJ0yly8M8BnEjj9Xdcj08BLw-jE2LeEm2_YK2NClOeQ9UJ_x3YZYY&usqp=CAU" alt="Logo" width="80" style="border-radius: 100%;">
+
+<h1 align="center" id="top">Dépôt Sauvage</h3>
+
+</div>
 
 Dépôt Sauvage is a web application designed to help communities and local authorities combat illegal waste dumping. It provides a platform for users to report and track instances of unauthorized waste disposal, enabling efficient communication between citizens and municipal services. The app aims to create awareness, prevent environmental harm, and streamline the process of reporting and managing waste-related incidents.
 
