@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { IncidentsModule } from './incidents/incidents.module';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -15,11 +16,11 @@ import { UsersModule } from './users/users.module';
       type: 'postgres', 
       host: 'localhost',
       port: 5432, 
-      username: 'root',
+      username: 'postgres',
       password: 'root',
-      database: 'test',
+      database: 'postgres',
       entities: [], 
-      synchronize: true, // This is for development only, set to false in production
+      synchronize: true, 
     }),
     AuthModule,
     IncidentsModule,
