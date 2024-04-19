@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
@@ -7,18 +8,19 @@ import { AuthModule } from './auth/auth.module';
 import { IncidentsModule } from './incidents/incidents.module';
 import { DatabaseModule } from './database/database.module';
 import { UsersModule } from './users/users.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mysql',
+      type: 'postgres', 
       host: 'localhost',
-      port: 3306,
-      username: 'root',
+      port: 5432, 
+      username: 'postgres',
       password: 'root',
-      database: 'test',
-      entities: [],
-      synchronize: true,
+      database: 'postgres',
+      entities: [], 
+      synchronize: true, 
     }),
     AuthModule,
     IncidentsModule,
