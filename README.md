@@ -1,115 +1,81 @@
-<br/>
-<div align="center">
+# Dépôt Sauvage
 
-![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)
-![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![Material UI](https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white)
-![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-222222?style=for-the-badge&logo=GitHub%20Pages&logoColor=white)
+Dépôt Sauvage is a web application developed using Java 22 and the Spring framework. It serves as a platform for reporting and managing instances of illegal waste dumping, facilitating communication between citizens and local authorities to combat environmental hazards effectively.
 
-![NestJS](https://img.shields.io/badge/nestjs-E0234E?style=for-the-badge&logo=nestjs&logoColor=white)
-![GraphQl](https://img.shields.io/badge/GraphQl-E10098?style=for-the-badge&logo=graphql&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)
-![Express JS](https://img.shields.io/badge/Express%20js-000000?style=for-the-badge&logo=express&logoColor=white)
-![Jest](https://img.shields.io/badge/Jest-C21325?style=for-the-badge&logo=jest&logoColor=white)
-![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white)
+## Description
 
-![Node js](https://img.shields.io/badge/Node%20js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
-![Prettier](https://img.shields.io/badge/prettier-1A2C34?style=for-the-badge&logo=prettier&logoColor=F7BA3E)
-![Docker](https://img.shields.io/badge/Docker-2CA5E0?style=for-the-badge&logo=docker&logoColor=whitee)
+Illegal waste dumping is a significant problem affecting many communities. Dépôt Sauvage aims to empower citizens by providing them with a tool to report such incidents swiftly. The platform also assists municipal services in efficiently managing reported incidents, thus enabling prompt actions to prevent environmental damage.
 
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJgYKHcjaMek7hg2RJ0yly8M8BnEjj9Xdcj08BLw-jE2LeEm2_YK2NClOeQ9UJ_x3YZYY&usqp=CAU" alt="Logo" width="80" style="border-radius: 100%;">
+## Stack
 
-<h1 align="center" id="top">Dépôt Sauvage</h3>
+- **Java 22**: The primary programming language for the application.
+- **Spring Boot**: Facilitates rapid development and deployment of the web application.
+- **Spring MVC**: Implements the Model-View-Controller design pattern for structured development.
+- **Spring Data JPA**: Simplifies database operations using Spring and Hibernate.
+- **Thymeleaf**: Provides server-side templating for rendering web pages.
+- **Bootstrap**: Ensures responsive and modern user interface design.
+- **MySQL/PostgreSQL**: Used as the relational database to store application data.
+- **Maven/Gradle**: Manages project dependencies and builds.
 
-</div>
+## Features
 
-Dépôt Sauvage is a web application designed to help communities and local authorities combat illegal waste dumping. It provides a platform for users to report and track instances of unauthorized waste disposal, enabling efficient communication between citizens and municipal services. The app aims to create awareness, prevent environmental harm, and streamline the process of reporting and managing waste-related incidents.
+- **User Registration and Authentication**: Users can sign up, log in, and manage their accounts.
+- **Report Incident**: Users can report instances of illegal waste dumping by providing details and location.
+- **View Incidents**: Authorities can view reported incidents and their details.
+- **Update Incident Status**: Authorities can update the status of reported incidents (e.g., under review, resolved).
+- **Interactive Map**: Display reported incidents on an interactive map for easy visualization.
+- **Notifications**: Automatic notifications to users upon incident status changes.
+- **Admin Dashboard**: Administrative panel to manage users, incidents, and system settings.
 
-## Tech Stack
+## Design Pattern
 
-- **Frontend:**
+Dépôt Sauvage is designed following the **MVC (Model-View-Controller)** architectural pattern:
 
-  - Vite
-  - React
-  - TypeScript
+- **Model**: Represents data structures and business logic (e.g., Incident, User).
+- **View**: Manages the presentation layer, rendering data to users (HTML templates using Thymeleaf).
+- **Controller**: Handles incoming requests, processes data, and interacts with services.
 
-- **Backend:**
-  - NestJS
-  - TypeScript
-  - Express.js (implicitly used by NestJS)
+Additionally, the application employs **Service Layer** to encapsulate business logic and **Repository Layer** for database interactions using Spring Data JPA.
 
-## Installation and Usage
+## API Endpoints
 
-### Prerequisites
+The application exposes the following RESTful API endpoints:
 
-Make sure you have the following installed on your machine:
+- `POST /api/register`: User registration endpoint.
+- `POST /api/login`: User authentication endpoint.
+- `POST /api/incidents`: Endpoint to report a new incident.
+- `GET /api/incidents`: Endpoint to fetch all reported incidents.
+- `GET /api/incidents/{id}`: Endpoint to fetch details of a specific incident by ID.
+- `PUT /api/incidents/{id}`: Endpoint to update the status of an incident by ID.
 
-- [Node.js](https://nodejs.org/)
-- [npm](https://www.npmjs.com/)
+## Getting Started
 
-### Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/lam-vincent/depot-sauvage.git
-   ```
-
-2. Navigate to the project directory:
+1. **Clone the repository**:
 
    ```bash
+   git clone https://github.com/your/repository.git
    cd depot-sauvage
    ```
 
-3. Install dependencies for the frontend:
+2. **Set Up Database**:
 
-   ```bash
-   cd client
-   npm i
-   ```
+   - Create a MySQL or PostgreSQL database.
+   - Update `application.properties` with your database credentials.
 
-4. Install dependencies for the backend:
+3. **Build and Run**:
 
-   ```bash
-   cd ../server
-   npm i
-   ```
+   - Using Maven:
 
-### Usage
+     ```bash
+     mvn spring-boot:run
+     ```
 
-1. Start the NestJS server:
+   - Using Gradle:
 
-   ```bash
-   cd server
-   npm run start
-   ```
+     ```bash
+     ./gradlew bootRun
+     ```
 
-2. Start the Vite development server for the frontend:
+4. **Access the Application**:
 
-   ```bash
-   cd client
-   npm run dev
-   ```
-
-3. Click on the link from the frontend server to access the web app.
-
-### Build for Production
-
-To build the frontend for production:
-
-```bash
-cd client
-npm run build
-```
-
-The optimized production-ready files will be in the `client/dist` directory.
-
-### Additional Configuration
-
-- You need to configure environment variables in order to get the application up and running.
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
+   Open a web browser and navigate to `http://localhost:8080` to use Dépôt Sauvage.
