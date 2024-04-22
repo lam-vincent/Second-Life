@@ -12,10 +12,8 @@ Illegal waste dumping is a significant problem affecting many communities. Dép�
 - **Spring Boot**: Facilitates rapid development and deployment of the web application.
 - **Spring MVC**: Implements the Model-View-Controller design pattern for structured development.
 - **Spring Data JPA**: Simplifies database operations using Spring and Hibernate.
-- **Thymeleaf**: Provides server-side templating for rendering web pages.
-- **Bootstrap**: Ensures responsive and modern user interface design.
-- **MySQL/PostgreSQL**: Used as the relational database to store application data.
-- **Maven/Gradle**: Manages project dependencies and builds.
+- **PostgreSQL**: Used as the relational database to store application data.
+- **Maven**: Manages project dependencies and builds.
 
 ## Features
 
@@ -24,15 +22,26 @@ Illegal waste dumping is a significant problem affecting many communities. Dép�
 - **View Incidents**: Authorities can view reported incidents and their details.
 - **Update Incident Status**: Authorities can update the status of reported incidents (e.g., under review, resolved).
 - **Interactive Map**: Display reported incidents on an interactive map for easy visualization.
+
+## Potential Future Improvements
+
 - **Notifications**: Automatic notifications to users upon incident status changes.
 - **Admin Dashboard**: Administrative panel to manage users, incidents, and system settings.
+- **Data Analysis**: Analyze reported incidents to identify patterns and trends.
+- **Mobile App**: Develop a mobile application for easier reporting and access to the platform.
+- **Integration with Mapping Services**: Integrate with popular mapping services for enhanced incident visualization.
+- **Multilingual Support**: Add support for multiple languages to cater to a wider user base.
+- **Image Upload**: Allow users to upload images as evidence when reporting incidents.
+- **Social Media Integration**: Enable users to share reported incidents on social media platforms.
+- **Real-time Chat**: Implement a chat feature for users to communicate with authorities or other users.
+- **Machine Learning**: Utilize machine learning algorithms to automate incident classification and analysis.
 
 ## Design Pattern
 
 Dépôt Sauvage is designed following the **MVC (Model-View-Controller)** architectural pattern:
 
 - **Model**: Represents data structures and business logic (e.g., Incident, User).
-- **View**: Manages the presentation layer, rendering data to users (HTML templates using Thymeleaf).
+- **View**: Manages the presentation layer, rendering data to users (React).
 - **Controller**: Handles incoming requests, processes data, and interacts with services.
 
 Additionally, the application employs **Service Layer** to encapsulate business logic and **Repository Layer** for database interactions using Spring Data JPA.
@@ -53,13 +62,13 @@ The application exposes the following RESTful API endpoints:
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your/repository.git
+   git clone https://github.com/lam-vincent/depot-sauvage.git
    cd depot-sauvage
    ```
 
 2. **Set Up Database**:
 
-   - Create a MySQL or PostgreSQL database.
+   - Create a PostgreSQL database.
    - Update `application.properties` with your database credentials.
 
 3. **Build and Run**:
@@ -68,12 +77,6 @@ The application exposes the following RESTful API endpoints:
 
      ```bash
      mvn spring-boot:run
-     ```
-
-   - Using Gradle:
-
-     ```bash
-     ./gradlew bootRun
      ```
 
 4. **Access the Application**:
