@@ -23,7 +23,6 @@ public class IncidentService {
 
     public Incident createIncident(Incident incident) {
         // Implement any business logic before saving the incident
-        // For example, set default values, validate inputs, etc.
         incident.setReportedAt(LocalDateTime.now());
         incident.setStatus(IncidentStatus.REPORTED);
         incident.setLocation("Default Location");
