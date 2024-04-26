@@ -2,7 +2,6 @@ package com.example.depotsauvage.controller;
 
 import com.example.depotsauvage.model.Incident;
 import com.example.depotsauvage.service.IncidentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +14,6 @@ public class IncidentController {
 
     private final IncidentService incidentService;
 
-    @Autowired
     public IncidentController(IncidentService incidentService) {
         this.incidentService = incidentService;
     }
