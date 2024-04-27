@@ -22,11 +22,10 @@ public class IncidentService {
     }
 
     public Incident createIncident(Incident incident) {
-        // Implement any business logic before saving the incident
         incident.setReportedAt(LocalDateTime.now());
         incident.setStatus(IncidentStatus.REPORTED);
-        incident.setLocation("Default Location");
-        incident.setDescription("Default Description");
+        incident.setLocation(incident.getLocation() != null ? incident.getLocation() : "Default Location");
+        incident.setDescription(incident.getDescription() != null ? incident.getDescription() : "Default Description");
 
         return incidentRepository.save(incident);
     }
@@ -53,7 +52,7 @@ public class IncidentService {
             // Save the updated incident
             return incidentRepository.save(existingIncident);
         }
-        return null; // Incident with the given ID not found
+        return null;
     }
 
     public boolean deleteIncident(Long id) {
@@ -61,6 +60,6 @@ public class IncidentService {
             incidentRepository.deleteById(id);
             return true;
         }
-        return false; // Incident with the given ID not found
+        return false;
     }
 }
