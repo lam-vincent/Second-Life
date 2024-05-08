@@ -10,13 +10,13 @@ const Footer: React.FC = () => {
           </p>
           <div>
             <a
-              href="#"
+              href="/"
               className="text-gray-300 hover:text-gray-500 px-3 py-1 text-sm"
             >
               Home
             </a>
             <a
-              href="#"
+              href="about"
               className="text-gray-300 hover:text-gray-500 px-3 py-1 text-sm"
             >
               About

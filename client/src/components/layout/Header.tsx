@@ -8,16 +8,16 @@ const Header: React.FC = () => {
           <h1 className="text-2xl font-bold">Dépôt Sauvage</h1>
         </div>
         <nav className="space-x-4">
-          <a href="#" className="hover:text-gray-300">
+          <a href="/" className="hover:text-gray-300">
             Home
           </a>
-          <a href="#" className="hover:text-gray-300">
+          <a href="incidents" className="hover:text-gray-300">
             Incidents
           </a>
-          <a href="#" className="hover:text-gray-300">
+          <a href="map" className="hover:text-gray-300">
             Map
           </a>
-          <a href="#" className="hover:text-gray-300">
+          <a href="about" className="hover:text-gray-300">
             About
           </a>
         </nav>
