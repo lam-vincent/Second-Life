@@ -9,9 +9,12 @@ const HomePage: React.FC = () => {
           Reporting and tracking incidents of illegal waste dumping made easy.
         </p>
         <div className="flex justify-center">
-          <button className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-            Get Started
-          </button>
+          <a
+            href="report"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+          >
+            Go Report your First Incident
+          </a>
         </div>
       </div>
     </div>
