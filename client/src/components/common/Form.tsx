@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-const Form: React.FC = () => {
+interface FormProps {
+  initialPosition: { x: number; y: number };
+}
+
+const Form: React.FC<FormProps> = ({ initialPosition }) => {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
+  const [coordinates, setCoordinates] = useState("");
   const [status] = useState("REPORTED");
+
+  useEffect(() => {
+    // Set initial location based on clickPosition from MapPage
+    setCoordinates(
+      `(${initialPosition.x.toFixed(2)}, ${initialPosition.y.toFixed(2)})`
+    );
+  }, [initialPosition]);
 
   const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -14,6 +26,7 @@ const Form: React.FC = () => {
       const response = await axios.post("http://localhost:8080/api/incidents", {
         description,
         location,
+        coordinates,
         status,
       });
 
@@ -60,6 +73,22 @@ const Form: React.FC = () => {
             id="location"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
+            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+            required
+          />
+        </div>
+        <div>
+          <label
+            htmlFor="coordinates"
+            className="block text-sm font-medium text-gray-700"
+          >
+            Coordinates
+          </label>
+          <input
+            type="text"
+            id="coordinates"
+            value={coordinates}
+            onChange={(e) => setCoordinates(e.target.value)}
             className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             required
           />
