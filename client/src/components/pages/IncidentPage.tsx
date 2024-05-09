@@ -6,6 +6,11 @@ import Incident from "../../types/Incident";
 const IncidentPage: React.FC = () => {
   const [incidents, setIncidents] = useState<Incident[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [refreshCounter, setRefreshCounter] = useState<number>(0);
+
+  const refreshIncidents = () => {
+    setRefreshCounter((prevCounter) => prevCounter + 1);
+  };
 
   useEffect(() => {
     const fetchIncidents = async () => {
@@ -21,7 +26,7 @@ const IncidentPage: React.FC = () => {
     };
 
     fetchIncidents();
-  }, []);
+  }, [refreshCounter]);
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -31,7 +36,11 @@ const IncidentPage: React.FC = () => {
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {incidents.map((incident) => (
-            <IncidentCard key={incident.id} incidentId={incident.id} />
+            <IncidentCard
+              key={incident.id}
+              incidentId={incident.id}
+              onIncidentChange={refreshIncidents}
+            />
           ))}
         </div>
       )}
