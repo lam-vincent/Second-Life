@@ -10,7 +10,8 @@ const IncidentPage: React.FC = () => {
   useEffect(() => {
     const fetchIncidents = async () => {
       try {
-        const response = await axios.get("/api/incidents"); // Example API endpoint to fetch all incidents
+        const response = await axios.get("http://localhost:8080/api/incidents");
+        console.log("Incidents:", response.data);
         setIncidents(response.data);
         setLoading(false);
       } catch (error) {
