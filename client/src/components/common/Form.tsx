@@ -4,25 +4,25 @@ import axios from "axios";
 const Form: React.FC = () => {
   const [description, setDescription] = useState("");
   const [location, setLocation] = useState("");
-  const [status, setStatus] = useState("");
+  const [status] = useState("REPORTED");
 
   const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     try {
       // Make POST request to API endpoint to add new incident
-      const response = await axios.post("/api/incidents", {
+      const response = await axios.post("http://localhost:8080/api/incidents", {
         description,
         location,
         status,
       });
 
       console.log("Incident added successfully:", response.data);
+      alert("Incident added successfully!");
 
       // Reset form fields after successful submission
       setDescription("");
       setLocation("");
-      setStatus("");
     } catch (error) {
       console.error("Error adding incident:", error);
     }
@@ -60,22 +60,6 @@ const Form: React.FC = () => {
             id="location"
             value={location}
             onChange={(e) => setLocation(e.target.value)}
-            className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
-            required
-          />
-        </div>
-        <div>
-          <label
-            htmlFor="status"
-            className="block text-sm font-medium text-gray-700"
-          >
-            Status
-          </label>
-          <input
-            type="text"
-            id="status"
-            value={status}
-            onChange={(e) => setStatus(e.target.value)}
             className="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
             required
           />

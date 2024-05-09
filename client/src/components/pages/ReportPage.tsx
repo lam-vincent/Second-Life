@@ -4,7 +4,9 @@ import Form from "../common/Form";
 const ReportPage: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Report Incident</h1>
+      <h1 className="text-3xl font-bold mb-6">
+        Fill out the form below to help us keep the city clean
+      </h1>
       <Form />
     </div>
   );

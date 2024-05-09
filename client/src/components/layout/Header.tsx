@@ -17,6 +17,9 @@ const Header: React.FC = () => {
           <a href="map" className="hover:text-gray-300">
             Map
           </a>
+          <a href="report" className="hover:text-gray-300">
+            Report
+          </a>
           <a href="about" className="hover:text-gray-300">
             About
           </a>
