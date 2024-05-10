@@ -6,6 +6,7 @@ interface Incident {
   description: string;
   reportedAt: string;
   location: string;
+  coordinates: string;
   status: string;
 }
 
@@ -84,6 +85,9 @@ const IncidentCard: React.FC<IncidentCardProps> = ({
             Reported at: {new Date(incident.reportedAt).toLocaleString()}
           </p>
           <p className="text-gray-600 mb-2">Location: {incident.location}</p>
+          <p className="text-gray-600 mb-2">
+            Coordinates: {incident.coordinates}
+          </p>
           <p className="text-gray-600 mb-2">Status: {incident.status}</p>
           <div className="flex space-x-4">
             <button
