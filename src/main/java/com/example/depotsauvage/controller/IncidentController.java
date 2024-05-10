@@ -73,4 +73,18 @@ public class IncidentController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    // Endpoint to retrieve all reported incidents
+    @GetMapping("/reported")
+    public ResponseEntity<List<Incident>> getReportedIncidents() {
+        List<Incident> reportedIncidents = incidentService.getReportedIncidents();
+        return new ResponseEntity<>(reportedIncidents, HttpStatus.OK);
+    }
+
+    // Endpoint to retrieve all resolved incidents
+    @GetMapping("/resolved")
+    public ResponseEntity<List<Incident>> getResolvedIncidents() {
+        List<Incident> resolvedIncidents = incidentService.getResolvedIncidents();
+        return new ResponseEntity<>(resolvedIncidents, HttpStatus.OK);
+    }
 }

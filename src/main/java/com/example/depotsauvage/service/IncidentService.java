@@ -25,6 +25,7 @@ public class IncidentService {
         incident.setReportedAt(LocalDateTime.now());
         incident.setStatus(IncidentStatus.REPORTED);
         incident.setLocation(incident.getLocation() != null ? incident.getLocation() : "Default Location");
+        incident.setCoordinates(incident.getCoordinates() != null ? incident.getCoordinates() : "(0.00, 0.00)");
         incident.setDescription(incident.getDescription() != null ? incident.getDescription() : "Default Description");
 
         return incidentRepository.save(incident);
@@ -61,5 +62,13 @@ public class IncidentService {
             return true;
         }
         return false;
+    }
+
+    public List<Incident> getReportedIncidents() {
+        return incidentRepository.findReportedIncidents();
+    }
+
+    public List<Incident> getResolvedIncidents() {
+        return incidentRepository.findResolvedIncidents();
     }
 }
