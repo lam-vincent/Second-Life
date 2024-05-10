@@ -2,8 +2,12 @@ package com.example.depotsauvage.controller;
 
 import com.example.depotsauvage.model.Incident;
 import com.example.depotsauvage.service.IncidentService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,7 +25,11 @@ public class IncidentController {
 
     // Endpoint to create a new incident
     @PostMapping
-    public ResponseEntity<Incident> createIncident(@RequestBody Incident incident) {
+    public ResponseEntity<Incident> createIncident(@Valid @RequestBody Incident incident, BindingResult result) {
+        if (result.hasErrors()) {
+            return ResponseEntity.badRequest().body(incident);
+        }
+
         Incident createdIncident = incidentService.createIncident(incident);
         return new ResponseEntity<>(createdIncident, HttpStatus.CREATED);
     }

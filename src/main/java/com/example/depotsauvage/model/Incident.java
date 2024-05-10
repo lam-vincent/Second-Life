@@ -11,6 +11,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import jakarta.validation.constraints.Pattern;
+
 @Entity
 @Table(name = "incidents")
 public class Incident {
@@ -28,6 +30,10 @@ public class Incident {
     @Column(nullable = false)
     private String location;
 
+    @Column(nullable = false)
+    @Pattern(regexp = "\\(\\d+\\.\\d+, \\d+\\.\\d+\\)", message = "Coordinates must be in the format '(0.00, 0.00)'")
+    private String coordinates;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private IncidentStatus status;
@@ -38,10 +44,12 @@ public class Incident {
         // Default constructor
     }
 
-    public Incident(String description, LocalDateTime reportedAt, String location, IncidentStatus status) {
+    public Incident(String description, LocalDateTime reportedAt, String location, String coordinates,
+            IncidentStatus status) {
         this.description = description;
         this.reportedAt = reportedAt;
         this.location = location;
+        this.coordinates = coordinates;
         this.status = status;
     }
 
@@ -77,6 +85,14 @@ public class Incident {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
     }
 
     public IncidentStatus getStatus() {
