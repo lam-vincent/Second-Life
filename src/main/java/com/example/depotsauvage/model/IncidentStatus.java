@@ -6,7 +6,6 @@ public enum IncidentStatus {
     RESOLVED;
 
     public static IncidentStatus valueOf(IncidentStatus status) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'valueOf'");
+        return valueOf(status.name());
     }
 }
