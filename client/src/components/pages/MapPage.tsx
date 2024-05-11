@@ -1,14 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import parisMapImage from "../../assets/paris-map.jpg";
-import pinIcon from "../../assets/yellow-pin.svg";
+import clickPinIcon from "../../assets/yellow-pin.svg";
+import reportedPinIcon from "../../assets/red-pin.svg";
+import resolvedPinIcon from "../../assets/green-pin.svg";
+import Incident from "../../types/Incident";
 
 const MapPage: React.FC = () => {
   const [clickPosition, setClickPosition] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
   });
+  const [incidents, setIncidents] = useState<Incident[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchIncidents = async () => {
+      try {
+        const response = await axios.get("http://localhost:8080/api/incidents");
+        console.log("API Response:", response.data);
+        setIncidents(response.data);
+      } catch (error) {
+        console.error("Error fetching incidents:", error);
+      }
+    };
+
+    fetchIncidents();
+  }, []);
+
+  const parseCoordinates = (coordinates: string): { x: number; y: number } => {
+    const [xStr, yStr] = coordinates
+      .replace("(", "")
+      .replace(")", "")
+      .split(",");
+
+    const x = parseFloat(xStr.trim());
+    const y = parseFloat(yStr.trim());
+
+    return { x, y };
+  };
 
   const handleMouseEvent = (event: React.MouseEvent<HTMLImageElement>) => {
     const { clientX, clientY, currentTarget } = event;
@@ -47,20 +78,48 @@ const MapPage: React.FC = () => {
           onClick={handleMouseEvent}
           style={{ display: "block" }}
         />
-        {clickPosition.x !== 0 && clickPosition.y !== 0 && (
-          <img
-            src={pinIcon}
-            alt="Pin"
-            className="absolute"
-            style={{
-              left: `${(clickPosition.x / 1440) * 100}%`,
-              top: `${(clickPosition.y / 1024) * 100}%`,
-              transform: "translate(-50%, -50%)",
-              width: "32px",
-              height: "32px",
-            }}
-          />
-        )}
+        {incidents.map((incident) => {
+          const { id, coordinates, status } = incident;
+          const { x, y } = parseCoordinates(JSON.stringify(coordinates));
+          const pinIconSrc =
+            status === "REPORTED" ? reportedPinIcon : resolvedPinIcon;
+
+          return (
+            <img
+              key={id}
+              src={pinIconSrc}
+              alt={
+                status === "REPORTED"
+                  ? "Reported Incident Pin"
+                  : "Resolved Incident Pin"
+              }
+              className="absolute"
+              style={{
+                left: `${(x / 1440) * 100}%`,
+                top: `${(y / 1024) * 100}%`,
+                transform: "translate(-50%, -50%)",
+                width: "32px",
+                height: "32px",
+                borderRadius: "50%",
+                border: "2px solid black",
+              }}
+            />
+          );
+        })}
+        <img
+          src={clickPinIcon}
+          alt="Click Pin"
+          className="absolute"
+          style={{
+            left: `${(clickPosition.x / 1440) * 100}%`,
+            top: `${(clickPosition.y / 1024) * 100}%`,
+            transform: "translate(-50%, -50%)",
+            width: "32px",
+            height: "32px",
+            borderRadius: "50%",
+            border: "2px solid black",
+          }}
+        />
       </div>
       <button
         className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"

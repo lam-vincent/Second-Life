@@ -3,6 +3,7 @@ interface Incident {
   description: string;
   reportedAt: string;
   location: string;
+  coordinates: { x: number; y: number };
   status: string;
 }
 
