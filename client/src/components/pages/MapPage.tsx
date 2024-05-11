@@ -13,7 +13,7 @@ const MapPage: React.FC = () => {
     y: 0,
   });
   const [incidents, setIncidents] = useState<Incident[]>([]);
-  const [filter, setFilter] = useState<string>("all"); // State to track filter type
+  const [filter, setFilter] = useState<string>("all");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,7 +65,7 @@ const MapPage: React.FC = () => {
     } else if (filter === "resolved") {
       return incident.status === "RESOLVED";
     } else {
-      return true; // Show all incidents
+      return true;
     }
   });
 
@@ -77,7 +77,6 @@ const MapPage: React.FC = () => {
         {clickPosition.y.toFixed(2)})
       </div>
       <div className="flex mb-4 space-x-4">
-        {/* Filter buttons */}
         <button
           className={`${
             filter === "all" ? "bg-blue-500" : "bg-gray-300"
@@ -114,10 +113,9 @@ const MapPage: React.FC = () => {
           onClick={handleMouseEvent}
           style={{ display: "block" }}
         />
-        {/* Render filtered pins */}
         {filteredIncidents.map((incident) => {
           const { id, coordinates, status } = incident;
-          const { x, y } = parseCoordinates(coordinates);
+          const { x, y } = parseCoordinates(JSON.stringify(coordinates));
           const pinIconSrc =
             status === "REPORTED" ? reportedPinIcon : resolvedPinIcon;
 
@@ -143,7 +141,6 @@ const MapPage: React.FC = () => {
             />
           );
         })}
-        {/* Render pin for clicked position */}
         <img
           src={clickPinIcon}
           alt="Click Pin"
