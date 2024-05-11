@@ -24,8 +24,6 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    // Constructors, getters, and setters
-
     public User() {
         // Default constructor
     }

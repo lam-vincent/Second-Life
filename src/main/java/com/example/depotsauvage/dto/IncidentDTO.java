@@ -1,57 +1,33 @@
-package com.example.depotsauvage.model;
+package com.example.depotsauvage.dto;
 
 import java.time.LocalDateTime;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.example.depotsauvage.model.IncidentStatus;
 
 import jakarta.validation.constraints.Pattern;
 
-@Entity
-@Table(name = "incidents")
-public class Incident {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class IncidentDTO {
     private Long id;
-
-    @Column(nullable = false)
     private String description;
-
-    @Column(nullable = false)
     private LocalDateTime reportedAt;
-
-    @Column(nullable = false)
     private String location;
+    private IncidentStatus status;
 
-    @Column(nullable = false)
     @Pattern(regexp = "\\(\\d+\\.\\d+, \\d+\\.\\d+\\)", message = "Coordinates must be in the format '(0.00, 0.00)'")
     private String coordinates;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private IncidentStatus status;
-
-    public Incident() {
-        // Default constructor
+    public IncidentDTO() {
     }
 
-    public Incident(String description, LocalDateTime reportedAt, String location, String coordinates,
-            IncidentStatus status) {
+    public IncidentDTO(Long id, String description, LocalDateTime reportedAt, String location, IncidentStatus status,
+            String coordinates) {
+        this.id = id;
         this.description = description;
         this.reportedAt = reportedAt;
         this.location = location;
-        this.coordinates = coordinates;
         this.status = status;
+        this.coordinates = coordinates;
     }
-
-    // Getters and setters
 
     public Long getId() {
         return id;
@@ -85,19 +61,19 @@ public class Incident {
         this.location = location;
     }
 
-    public String getCoordinates() {
-        return coordinates;
-    }
-
-    public void setCoordinates(String coordinates) {
-        this.coordinates = coordinates;
-    }
-
     public IncidentStatus getStatus() {
         return status;
     }
 
     public void setStatus(IncidentStatus status) {
         this.status = status;
+    }
+
+    public String getCoordinates() {
+        return coordinates;
+    }
+
+    public void setCoordinates(String coordinates) {
+        this.coordinates = coordinates;
     }
 }

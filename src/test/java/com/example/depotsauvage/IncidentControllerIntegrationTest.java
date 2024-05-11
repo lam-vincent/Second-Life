@@ -46,6 +46,7 @@ public class IncidentControllerIntegrationTest {
         public void testCreateIncident() throws Exception {
                 // Mock incident data
                 Incident incident = new Incident("Test Description", LocalDateTime.now(), "Test Location",
+                                "(0.00, 0.00)",
                                 IncidentStatus.IN_PROGRESS);
 
                 // Mock service method to save incident
@@ -64,6 +65,7 @@ public class IncidentControllerIntegrationTest {
                 // Mock incident data
                 Long incidentId = 1L;
                 Incident incident = new Incident("Test Description", LocalDateTime.now(), "Test Location",
+                                "(0.00, 0.00)",
                                 IncidentStatus.IN_PROGRESS);
 
                 // Mock service method to retrieve incident by ID
@@ -79,9 +81,9 @@ public class IncidentControllerIntegrationTest {
         @Test
         public void testGetAllIncidents() throws Exception {
                 // Mock data
-                Incident incident1 = new Incident("Description 1", LocalDateTime.now(), "Location 1",
+                Incident incident1 = new Incident("Description 1", LocalDateTime.now(), "Location 1", "(0.00, 0.00)",
                                 IncidentStatus.IN_PROGRESS);
-                Incident incident2 = new Incident("Description 2", LocalDateTime.now(), "Location 2",
+                Incident incident2 = new Incident("Description 2", LocalDateTime.now(), "Location 2", "(0.00, 0.00)",
                                 IncidentStatus.IN_PROGRESS);
                 List<Incident> incidents = Arrays.asList(incident1, incident2);
 
@@ -102,6 +104,7 @@ public class IncidentControllerIntegrationTest {
                 // Mock incident data
                 Long incidentId = 1L;
                 Incident updatedIncident = new Incident("Updated Description", LocalDateTime.now(), "Updated Location",
+                                "(0.00, 0.00)",
                                 IncidentStatus.IN_PROGRESS);
 
                 // Mock service method to update incident
