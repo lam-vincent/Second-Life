@@ -13,6 +13,7 @@ const MapPage: React.FC = () => {
     y: 0,
   });
   const [incidents, setIncidents] = useState<Incident[]>([]);
+  const [filter, setFilter] = useState<string>("all"); // State to track filter type
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,11 +46,9 @@ const MapPage: React.FC = () => {
     const { clientX, clientY, currentTarget } = event;
     const { left, top, width, height } = currentTarget.getBoundingClientRect();
 
-    // Calculate position relative to the image
     const posX = (clientX - left) / width;
     const posY = (clientY - top) / height;
 
-    // Normalize coordinates to image dimensions
     const imageX = posX * currentTarget.naturalWidth;
     const imageY = posY * currentTarget.naturalHeight;
 
@@ -60,12 +59,49 @@ const MapPage: React.FC = () => {
     navigate("/report", { state: { clickPosition } });
   };
 
+  const filteredIncidents = incidents.filter((incident) => {
+    if (filter === "reported") {
+      return incident.status === "REPORTED";
+    } else if (filter === "resolved") {
+      return incident.status === "RESOLVED";
+    } else {
+      return true; // Show all incidents
+    }
+  });
+
   return (
     <div className="mx-auto max-w-4xl p-4">
       <h1 className="text-2xl font-bold mb-4">Map Page</h1>
       <div className="mb-2">
-        <strong>Click Position:</strong> ({clickPosition.x.toFixed(2)},{" "}
+        <strong>Click Position:</strong> ({clickPosition.x.toFixed(2)},
         {clickPosition.y.toFixed(2)})
+      </div>
+      <div className="flex mb-4 space-x-4">
+        {/* Filter buttons */}
+        <button
+          className={`${
+            filter === "all" ? "bg-blue-500" : "bg-gray-300"
+          } hover:bg-blue-600 text-white font-bold py-2 px-4 rounded`}
+          onClick={() => setFilter("all")}
+        >
+          All
+        </button>
+        <button
+          className={`${
+            filter === "reported" ? "bg-red-500" : "bg-gray-300"
+          } hover:bg-red-600 text-white font-bold py-2 px-4 rounded`}
+          onClick={() => setFilter("reported")}
+        >
+          Reported
+        </button>
+        <button
+          className={`${
+            filter === "resolved" ? "bg-green-500" : "bg-gray-300"
+          } hover:bg-green-600 text-white font-bold py-2 px-4 rounded`}
+          onClick={() => setFilter("resolved")}
+        >
+          Resolved
+        </button>
       </div>
       <div
         className="relative"
@@ -78,9 +114,10 @@ const MapPage: React.FC = () => {
           onClick={handleMouseEvent}
           style={{ display: "block" }}
         />
-        {incidents.map((incident) => {
+        {/* Render filtered pins */}
+        {filteredIncidents.map((incident) => {
           const { id, coordinates, status } = incident;
-          const { x, y } = parseCoordinates(JSON.stringify(coordinates));
+          const { x, y } = parseCoordinates(coordinates);
           const pinIconSrc =
             status === "REPORTED" ? reportedPinIcon : resolvedPinIcon;
 
@@ -106,6 +143,7 @@ const MapPage: React.FC = () => {
             />
           );
         })}
+        {/* Render pin for clicked position */}
         <img
           src={clickPinIcon}
           alt="Click Pin"
