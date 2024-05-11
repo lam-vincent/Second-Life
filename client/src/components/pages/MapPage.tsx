@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import parisMapImage from "../../assets/paris-map.jpg";
+import pinIcon from "../../assets/yellow-pin.svg";
 
 const MapPage: React.FC = () => {
-  const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  });
   const [clickPosition, setClickPosition] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
   });
-
   const navigate = useNavigate();
 
   const handleMouseEvent = (event: React.MouseEvent<HTMLImageElement>) => {
@@ -26,38 +22,52 @@ const MapPage: React.FC = () => {
     const imageX = posX * currentTarget.naturalWidth;
     const imageY = posY * currentTarget.naturalHeight;
 
-    // Determine which state to update based on the event type
-    const updatePosition =
-      event.type === "mousemove" ? setMousePosition : setClickPosition;
-
-    // Update state with the calculated position
-    updatePosition({ x: imageX, y: imageY });
+    setClickPosition({ x: imageX, y: imageY });
   };
 
   const handleReportButtonClick = () => {
-    // Redirect to the report page and pass the clickPosition as state
     navigate("/report", { state: { clickPosition } });
   };
 
   return (
-    <div>
-      <h1>Map Page</h1>
-      <div style={{ marginTop: "20px" }}>
-        <strong>Mouse Position:</strong> ({mousePosition.x.toFixed(2)},{" "}
-        {mousePosition.y.toFixed(2)})
-      </div>
-      <div>
+    <div className="mx-auto max-w-4xl p-4">
+      <h1 className="text-2xl font-bold mb-4">Map Page</h1>
+      <div className="mb-2">
         <strong>Click Position:</strong> ({clickPosition.x.toFixed(2)},{" "}
         {clickPosition.y.toFixed(2)})
       </div>
-      <img
-        src={parisMapImage}
-        alt="Paris Map"
-        style={{ maxWidth: "100%" }}
-        onMouseMove={handleMouseEvent}
-        onClick={handleMouseEvent}
-      />
-      <button onClick={handleReportButtonClick}>Go to Report Page</button>
+      <div
+        className="relative"
+        style={{ width: "100%", height: "auto", position: "relative" }}
+      >
+        <img
+          src={parisMapImage}
+          alt="Paris Map"
+          className="w-full rounded-lg cursor-pointer"
+          onClick={handleMouseEvent}
+          style={{ display: "block" }}
+        />
+        {clickPosition.x !== 0 && clickPosition.y !== 0 && (
+          <img
+            src={pinIcon}
+            alt="Pin"
+            className="absolute"
+            style={{
+              left: `${(clickPosition.x / 1440) * 100}%`,
+              top: `${(clickPosition.y / 1024) * 100}%`,
+              transform: "translate(-50%, -50%)",
+              width: "32px",
+              height: "32px",
+            }}
+          />
+        )}
+      </div>
+      <button
+        className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+        onClick={handleReportButtonClick}
+      >
+        Go to Report Page
+      </button>
     </div>
   );
 };
