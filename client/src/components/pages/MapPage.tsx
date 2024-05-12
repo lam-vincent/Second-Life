@@ -6,6 +6,7 @@ import clickPinIcon from "../../assets/yellow-pin.svg";
 import reportedPinIcon from "../../assets/red-pin.svg";
 import resolvedPinIcon from "../../assets/green-pin.svg";
 import Incident from "../../types/Incident";
+import IncidentCard from "../common/IncidentCard";
 
 const MapPage: React.FC = () => {
   const [clickPosition, setClickPosition] = useState<{ x: number; y: number }>({
@@ -14,31 +15,34 @@ const MapPage: React.FC = () => {
   });
   const [incidents, setIncidents] = useState<Incident[]>([]);
   const [filter, setFilter] = useState<string>("all");
+  const [refreshCounter, setRefreshCounter] = useState<number>(0);
+  const [clickedIncident, setClickedIncident] = useState<Incident | null>(null);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const fetchIncidents = async () => {
-      try {
-        const response = await axios.get("http://localhost:8080/api/incidents");
-        console.log("API Response:", response.data);
-        setIncidents(response.data);
-      } catch (error) {
-        console.error("Error fetching incidents:", error);
-      }
-    };
+  const refreshIncidents = () => {
+    setRefreshCounter((prevCounter) => prevCounter + 1);
+  };
 
+  const fetchIncidents = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/api/incidents");
+      setIncidents(response.data);
+    } catch (error) {
+      console.error("Error fetching incidents:", error);
+    }
+  };
+
+  useEffect(() => {
     fetchIncidents();
-  }, []);
+  }, [refreshCounter, incidents]);
 
   const parseCoordinates = (coordinates: string): { x: number; y: number } => {
     const [xStr, yStr] = coordinates
-      .replace("(", "")
-      .replace(")", "")
+      .replace('"(', "")
+      .replace(')"', "")
       .split(",");
-
     const x = parseFloat(xStr.trim());
     const y = parseFloat(yStr.trim());
-
     return { x, y };
   };
 
@@ -53,6 +57,11 @@ const MapPage: React.FC = () => {
     const imageY = posY * currentTarget.naturalHeight;
 
     setClickPosition({ x: imageX, y: imageY });
+    setClickedIncident(null);
+  };
+
+  const handlePinClick = (incident: Incident) => {
+    setClickedIncident(incident);
   };
 
   const handleReportButtonClick = () => {
@@ -138,9 +147,11 @@ const MapPage: React.FC = () => {
                 borderRadius: "50%",
                 border: "2px solid black",
               }}
+              onClick={() => handlePinClick(incident)}
             />
           );
         })}
+        {/* Render pin for clicked position */}
         <img
           src={clickPinIcon}
           alt="Click Pin"
@@ -155,6 +166,24 @@ const MapPage: React.FC = () => {
             border: "2px solid black",
           }}
         />
+        {/* Render IncidentCard when hovering over pin */}
+        {clickedIncident && (
+          <div
+            className="absolute rounded"
+            style={{
+              left: `${50}%`,
+              top: `${50}%`,
+              transform: "translate(-50%, -50%)",
+            }}
+            onClick={() => handlePinClick(null)}
+          >
+            <IncidentCard
+              key={clickedIncident.id}
+              incidentId={clickedIncident.id}
+              onIncidentChange={refreshIncidents}
+            />
+          </div>
+        )}
       </div>
       <button
         className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
