@@ -24,7 +24,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.example.depotsauvage.controller.IncidentController;
-import com.example.depotsauvage.model.Incident;
+import com.example.depotsauvage.dto.IncidentDTO;
 import com.example.depotsauvage.model.IncidentStatus;
 import com.example.depotsauvage.service.IncidentService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -45,16 +45,17 @@ public class IncidentControllerIntegrationTest {
         @Test
         public void testCreateIncident() throws Exception {
                 // Mock incident data
-                Incident incident = new Incident("Test Description", LocalDateTime.now(), "Test Location",
-                                IncidentStatus.IN_PROGRESS);
+                IncidentDTO incidentDTO = new IncidentDTO(null, "Test Description", LocalDateTime.now(),
+                                "Test Location",
+                                IncidentStatus.IN_PROGRESS, "(0.00, 0.00)");
 
                 // Mock service method to save incident
-                given(incidentService.createIncident(any(Incident.class))).willReturn(incident);
+                given(incidentService.createIncident(any(IncidentDTO.class))).willReturn(incidentDTO);
 
                 // Perform POST request to create incident
                 mockMvc.perform(post("/api/incidents")
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(incident)))
+                                .content(objectMapper.writeValueAsString(incidentDTO)))
                                 .andExpect(status().isCreated())
                                 .andExpect(jsonPath("$.description").value("Test Description"));
         }
@@ -63,11 +64,12 @@ public class IncidentControllerIntegrationTest {
         public void testGetIncidentById() throws Exception {
                 // Mock incident data
                 Long incidentId = 1L;
-                Incident incident = new Incident("Test Description", LocalDateTime.now(), "Test Location",
-                                IncidentStatus.IN_PROGRESS);
+                IncidentDTO incidentDTO = new IncidentDTO(incidentId, "Test Description", LocalDateTime.now(),
+                                "Test Location",
+                                IncidentStatus.IN_PROGRESS, "(0.00, 0.00)");
 
                 // Mock service method to retrieve incident by ID
-                given(incidentService.getIncidentById(incidentId)).willReturn(incident);
+                given(incidentService.getIncidentById(incidentId)).willReturn(incidentDTO);
 
                 // Perform GET request to retrieve incident by ID
                 mockMvc.perform(get("/api/incidents/{id}", incidentId)
@@ -79,14 +81,14 @@ public class IncidentControllerIntegrationTest {
         @Test
         public void testGetAllIncidents() throws Exception {
                 // Mock data
-                Incident incident1 = new Incident("Description 1", LocalDateTime.now(), "Location 1",
-                                IncidentStatus.IN_PROGRESS);
-                Incident incident2 = new Incident("Description 2", LocalDateTime.now(), "Location 2",
-                                IncidentStatus.IN_PROGRESS);
-                List<Incident> incidents = Arrays.asList(incident1, incident2);
+                IncidentDTO incidentDTO1 = new IncidentDTO(null, "Description 1", LocalDateTime.now(), "Location 1",
+                                IncidentStatus.IN_PROGRESS, "(0.00, 0.00)");
+                IncidentDTO incidentDTO2 = new IncidentDTO(null, "Description 2", LocalDateTime.now(), "Location 2",
+                                IncidentStatus.IN_PROGRESS, "(0.00, 0.00)");
+                List<IncidentDTO> incidentDTOs = Arrays.asList(incidentDTO1, incidentDTO2);
 
                 // Mock service method to return incidents
-                given(incidentService.getAllIncidents()).willReturn(incidents);
+                given(incidentService.getAllIncidents()).willReturn(incidentDTOs);
 
                 // Perform GET request and verify response
                 mockMvc.perform(get("/api/incidents")
@@ -101,16 +103,18 @@ public class IncidentControllerIntegrationTest {
         public void testUpdateIncident() throws Exception {
                 // Mock incident data
                 Long incidentId = 1L;
-                Incident updatedIncident = new Incident("Updated Description", LocalDateTime.now(), "Updated Location",
-                                IncidentStatus.IN_PROGRESS);
+                IncidentDTO updatedIncidentDTO = new IncidentDTO(null, "Updated Description", LocalDateTime.now(),
+                                "Updated Location",
+                                IncidentStatus.IN_PROGRESS, "(0.00, 0.00)");
 
                 // Mock service method to update incident
-                given(incidentService.updateIncident(eq(incidentId), any(Incident.class))).willReturn(updatedIncident);
+                given(incidentService.updateIncident(eq(incidentId), any(IncidentDTO.class)))
+                                .willReturn(updatedIncidentDTO);
 
                 // Perform PUT request to update incident
                 mockMvc.perform(put("/api/incidents/{id}", incidentId)
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(updatedIncident)))
+                                .content(objectMapper.writeValueAsString(updatedIncidentDTO)))
                                 .andExpect(status().isOk())
                                 .andExpect(jsonPath("$.description").value("Updated Description"));
         }

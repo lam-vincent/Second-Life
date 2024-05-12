@@ -1,67 +1,86 @@
 package com.example.depotsauvage.controller;
 
-import com.example.depotsauvage.model.Incident;
+import com.example.depotsauvage.dto.IncidentDTO;
+import com.example.depotsauvage.mapper.IncidentMapper;
 import com.example.depotsauvage.service.IncidentService;
+
+import jakarta.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/incidents")
+@CrossOrigin(origins = "http://localhost:5173")
 public class IncidentController {
 
     private final IncidentService incidentService;
+    private final IncidentMapper incidentMapper;
 
-    public IncidentController(IncidentService incidentService) {
+    public IncidentController(IncidentService incidentService, IncidentMapper incidentMapper) {
         this.incidentService = incidentService;
+        this.incidentMapper = incidentMapper;
     }
 
-    // Endpoint to create a new incident
     @PostMapping
-    public ResponseEntity<Incident> createIncident(@RequestBody Incident incident) {
-        Incident createdIncident = incidentService.createIncident(incident);
-        return new ResponseEntity<>(createdIncident, HttpStatus.CREATED);
+    public ResponseEntity<IncidentDTO> createIncident(@Valid @RequestBody IncidentDTO incidentDTO,
+            BindingResult result) {
+        if (result.hasErrors()) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        IncidentDTO createdIncidentDTO = incidentMapper
+                .toDTO(incidentService.createIncident(incidentMapper.toEntity(incidentDTO)));
+        return new ResponseEntity<>(createdIncidentDTO, HttpStatus.CREATED);
     }
 
-    // Endpoint to retrieve all incidents
     @GetMapping
-    public ResponseEntity<List<Incident>> getAllIncidents() {
-        List<Incident> incidents = incidentService.getAllIncidents();
-        return new ResponseEntity<>(incidents, HttpStatus.OK);
+    public ResponseEntity<List<IncidentDTO>> getAllIncidents() {
+        List<IncidentDTO> incidentDTOs = incidentService.getAllIncidents().stream()
+                .map(incidentMapper::toDTO)
+                .toList();
+        return new ResponseEntity<>(incidentDTOs, HttpStatus.OK);
     }
 
-    // Endpoint to retrieve a specific incident by ID
     @GetMapping("/{id}")
-    public ResponseEntity<Incident> getIncidentById(@PathVariable Long id) {
-        Incident incident = incidentService.getIncidentById(id);
-        if (incident != null) {
-            return new ResponseEntity<>(incident, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<IncidentDTO> getIncidentById(@PathVariable Long id) {
+        IncidentDTO incidentDTO = incidentService.getIncidentById(id);
+        return incidentDTO != null ? new ResponseEntity<>(incidentDTO, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // Endpoint to update an existing incident
     @PutMapping("/{id}")
-    public ResponseEntity<Incident> updateIncident(@PathVariable Long id, @RequestBody Incident updatedIncident) {
-        Incident incident = incidentService.updateIncident(id, updatedIncident);
-        if (incident != null) {
-            return new ResponseEntity<>(incident, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<IncidentDTO> updateIncident(@PathVariable Long id,
+            @RequestBody IncidentDTO updatedIncidentDTO) {
+        IncidentDTO updatedIncident = incidentMapper.toDTO(
+                incidentService.updateIncident(id, incidentMapper.toEntity(updatedIncidentDTO)));
+        return updatedIncident != null ? new ResponseEntity<>(updatedIncident, HttpStatus.OK)
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // Endpoint to delete an incident by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteIncident(@PathVariable Long id) {
         boolean deleted = incidentService.deleteIncident(id);
-        if (deleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return deleted ? ResponseEntity.noContent().build() : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/reported")
+    public ResponseEntity<List<IncidentDTO>> getReportedIncidents() {
+        List<IncidentDTO> reportedIncidents = incidentService.getReportedIncidents().stream()
+                .map(incidentMapper::toDTO)
+                .toList();
+        return new ResponseEntity<>(reportedIncidents, HttpStatus.OK);
+    }
+
+    @GetMapping("/resolved")
+    public ResponseEntity<List<IncidentDTO>> getResolvedIncidents() {
+        List<IncidentDTO> resolvedIncidents = incidentService.getResolvedIncidents().stream()
+                .map(incidentMapper::toDTO)
+                .toList();
+        return new ResponseEntity<>(resolvedIncidents, HttpStatus.OK);
     }
 }
