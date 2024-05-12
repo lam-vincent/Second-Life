@@ -92,9 +92,9 @@ const IncidentCard: React.FC<IncidentCardProps> = ({
           <div className="flex space-x-4">
             <button
               onClick={handleUpdate}
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+              className="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded"
             >
-              Update
+              Resolve
             </button>
             <button
               onClick={handleDelete}
