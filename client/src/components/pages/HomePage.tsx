@@ -2,19 +2,33 @@ import React from "react";
 
 const HomePage: React.FC = () => {
   return (
-    <div className="bg-gray-100 min-h-screen">
-      <div className="container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-4">Welcome to Dépôt Sauvage</h1>
-        <p className="text-lg text-gray-700 mb-6">
+    <div className="bg-gray-100 min-h-screen flex  rounded-2xl">
+      <div className="container mx-auto px-4 py-8 ml-8">
+        <h1 className="text-5xl font-bold mb-4 font-serif text-green-700 mt-8">
+          Clean Streets Make 🍃
+        </h1>
+        <h2 className="text-5xl font-bold mb-4 font-serif text-green-700">
+          😎 Better Lives
+        </h2>
+        <p className="text-lg text-green-700 font-light mb-6">
           Reporting and tracking incidents of illegal waste dumping made easy.
         </p>
         <div className="flex justify-center">
           <a
             href="report"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+            className="text-white font-medium py-3 px-8 font-sans bg-gradient-to-l from-green-500 to-green-700 rounded hover:from-green-700 hover:to-green-900 mt-6"
           >
-            Go Report your First Incident
+            Go Report
           </a>
+        </div>
+      </div>
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex justify-center mt-8">
+          <img
+            src="homepage.jpg"
+            alt="Clean Streets Make Better Lives"
+            className="rounded-lg"
+          />
         </div>
       </div>
     </div>

@@ -131,7 +131,7 @@ const Form: React.FC<FormProps> = ({ initialPosition }) => {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+          className="text-white font-medium py-3 px-8 font-sans bg-gradient-to-l from-green-500 to-green-700 rounded hover:from-green-700 hover:to-green-900"
         >
           Submit
         </button>

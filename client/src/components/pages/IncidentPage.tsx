@@ -42,28 +42,36 @@ const IncidentPage: React.FC = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Recent Incidents</h1>
+      <h1 className="text-3xl font-bold mb-6 text-green-700">
+        Recent Incidents
+      </h1>
       <div className="flex justify-center mb-4 space-x-4">
         <button
           className={`${
-            filterStatus === "all" ? "bg-blue-500" : "bg-gray-300"
-          } hover:bg-blue-600 text-white font-bold py-2 px-4 rounded`}
+            filterStatus === "all"
+              ? "bg-gradient-to-l from-green-500 to-green-700"
+              : "bg-gray-300"
+          } hover:from-green-700 hover:to-green-900 text-white font-bold py-2 px-4 rounded`}
           onClick={() => handleFilterChange("all")}
         >
           All
         </button>
         <button
           className={`${
-            filterStatus === "reported" ? "bg-blue-500" : "bg-gray-300"
-          } hover:bg-blue-600 text-white font-bold py-2 px-4 rounded`}
+            filterStatus === "reported"
+              ? "bg-gradient-to-l from-green-500 to-green-700"
+              : "bg-gray-300"
+          } hover:from-green-700 hover:to-green-900 text-white font-bold py-2 px-4 rounded`}
           onClick={() => handleFilterChange("reported")}
         >
           Reported
         </button>
         <button
           className={`${
-            filterStatus === "resolved" ? "bg-blue-500" : "bg-gray-300"
-          } hover:bg-blue-600 text-white font-bold py-2 px-4 rounded`}
+            filterStatus === "resolved"
+              ? "bg-gradient-to-l from-green-500 to-green-700"
+              : "bg-gray-300"
+          } hover:from-green-700 hover:to-green-900 text-white font-bold py-2 px-4 rounded`}
           onClick={() => handleFilterChange("resolved")}
         >
           Resolved

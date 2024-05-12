@@ -80,36 +80,42 @@ const MapPage: React.FC = () => {
 
   return (
     <div className="mx-auto max-w-4xl p-4">
-      <h1 className="text-2xl font-bold mb-4">Map Page</h1>
-      <div className="mb-2">
-        <strong>Click Position:</strong> ({clickPosition.x.toFixed(2)},
-        {clickPosition.y.toFixed(2)})
-      </div>
+      <h1 className="text-2xl font-bold mb-4 text-green-700">Paris Map</h1>
       <div className="flex mb-4 space-x-4">
         <button
           className={`${
-            filter === "all" ? "bg-blue-500" : "bg-gray-300"
-          } hover:bg-blue-600 text-white font-bold py-2 px-4 rounded`}
+            filter === "all"
+              ? "bg-gradient-to-l from-green-500 to-green-700"
+              : "bg-gray-300"
+          } hover:from-green-700 hover:to-green-900 text-white font-bold py-2 px-4 rounded`}
           onClick={() => setFilter("all")}
         >
           All
         </button>
         <button
           className={`${
-            filter === "reported" ? "bg-red-500" : "bg-gray-300"
-          } hover:bg-red-600 text-white font-bold py-2 px-4 rounded`}
+            filter === "reported"
+              ? "bg-gradient-to-l from-green-500 to-green-700"
+              : "bg-gray-300"
+          } hover:from-green-700 hover:to-green-900 text-white font-bold py-2 px-4 rounded`}
           onClick={() => setFilter("reported")}
         >
           Reported
         </button>
         <button
           className={`${
-            filter === "resolved" ? "bg-green-500" : "bg-gray-300"
-          } hover:bg-green-600 text-white font-bold py-2 px-4 rounded`}
+            filter === "resolved"
+              ? "bg-gradient-to-l from-green-500 to-green-700"
+              : "bg-gray-300"
+          } hover:from-green-700 hover:to-green-900 text-white font-bold py-2 px-4 rounded`}
           onClick={() => setFilter("resolved")}
         >
           Resolved
         </button>
+      </div>
+      <div className="mb-2 text-green-700">
+        <strong>Click Position:</strong> ({clickPosition.x.toFixed(2)},
+        {clickPosition.y.toFixed(2)})
       </div>
       <div
         className="relative"
@@ -186,7 +192,7 @@ const MapPage: React.FC = () => {
         )}
       </div>
       <button
-        className="mt-4 bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+        className="mt-4 text-white font-medium py-3 px-8 font-sans bg-gradient-to-l from-green-500 to-green-700 rounded hover:from-green-700 hover:to-green-900"
         onClick={handleReportButtonClick}
       >
         Go to Report Page
