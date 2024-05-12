@@ -175,7 +175,7 @@ const MapPage: React.FC = () => {
               top: `${50}%`,
               transform: "translate(-50%, -50%)",
             }}
-            onClick={() => handlePinClick(null)}
+            onClick={() => setClickedIncident(null)}
           >
             <IncidentCard
               key={clickedIncident.id}
