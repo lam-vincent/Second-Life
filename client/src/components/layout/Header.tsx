@@ -4,7 +4,8 @@ const Header: React.FC = () => {
   return (
     <header className="text-emerald-700 py-4">
       <div className="container mx-auto px-4 flex justify-between items-center">
-        <div>
+        <div className="flex gap-2">
+          <img src="logo.png" alt="Dépôt Sauvage" className="h-8" />
           <h1 className="text-2xl font-bold">Dépôt Sauvage</h1>
         </div>
         <nav className="space-x-4">
