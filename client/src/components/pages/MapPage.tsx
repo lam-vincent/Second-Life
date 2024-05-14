@@ -17,6 +17,10 @@ const MapPage: React.FC = () => {
   const [filter, setFilter] = useState<string>("all");
   const [refreshCounter, setRefreshCounter] = useState<number>(0);
   const [clickedIncident, setClickedIncident] = useState<Incident | null>(null);
+  const [imageSize] = useState<{ width: number; height: number }>({
+    width: 1200,
+    height: 899,
+  });
   const navigate = useNavigate();
 
   const refreshIncidents = () => {
@@ -145,8 +149,8 @@ const MapPage: React.FC = () => {
               }
               className="absolute"
               style={{
-                left: `${(x / 1440) * 100}%`,
-                top: `${(y / 1024) * 100}%`,
+                left: `${(x / imageSize.width) * 100}%`,
+                top: `${(y / imageSize.height) * 100}%`,
                 transform: "translate(-50%, -50%)",
                 width: "32px",
                 height: "32px",
@@ -163,8 +167,8 @@ const MapPage: React.FC = () => {
           alt="Click Pin"
           className="absolute"
           style={{
-            left: `${(clickPosition.x / 1440) * 100}%`,
-            top: `${(clickPosition.y / 1024) * 100}%`,
+            left: `${(clickPosition.x / imageSize.width) * 100}%`,
+            top: `${(clickPosition.y / imageSize.height) * 100}%`,
             transform: "translate(-50%, -50%)",
             width: "32px",
             height: "32px",
