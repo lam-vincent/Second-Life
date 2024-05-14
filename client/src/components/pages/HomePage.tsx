@@ -15,7 +15,7 @@ const HomePage: React.FC = () => {
         </p>
         <div className="flex justify-center">
           <a
-            href="report"
+            href="map"
             className="text-white font-medium py-3 px-8 font-sans bg-gradient-to-l from-green-500 to-green-700 rounded hover:from-green-700 hover:to-green-900 mt-6"
           >
             Go Report
