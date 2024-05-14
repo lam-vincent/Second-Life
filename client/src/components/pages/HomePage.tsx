@@ -25,7 +25,7 @@ const HomePage: React.FC = () => {
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-center mt-8">
           <img
-            src="homepage.jpg"
+            src="homepage.jpeg"
             alt="Clean Streets Make Better Lives"
             className="rounded-lg"
           />
