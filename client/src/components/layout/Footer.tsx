@@ -5,9 +5,7 @@ const Footer: React.FC = () => {
     <footer className="bg-emerald-700 text-gray-300 py-4">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center">
-          <p className="text-sm">
-            &copy; {new Date().getFullYear()} Dépôt Sauvage
-          </p>
+          <p className="text-sm">{new Date().getFullYear()} Dépôt Sauvage</p>
           <div>
             <a
               href="/"
